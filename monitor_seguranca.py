@@ -33,8 +33,22 @@ class MonitorDeLogs:
     def vigiar(self):
         print(f"Vigiando o arquivo: {self.caminho_log}")
 
-        
-        pass
+        with open(self.caminho_log, 'r', encoding='utf-8') as arquivo:
+
+            arquivo.seek(0, 2)
+
+            while True:
+                linha = arquivo.readline()
+
+                if linha:
+                    if "Failed password" in linha:
+                        print(f"ALERTA DE INVASAO CAPTURADO: {linha.strip()}")
+
+                else:
+                    time.sleep(0.1)
+
+                    pass
+
 
 class GerenciadorFirewall:
     def bloquear_ip(self, ip):
@@ -46,5 +60,5 @@ if __name__ == "__main__":
     banco = GerenciadorBD()
     banco.configurar_banco()
 
-    monitor = MonitorDeLogs("/var/log/auth.log")
+    monitor = MonitorDeLogs(r"C:\Users\migue\PycharmProjects\MiniFail2BAN\teste_log.txt")
     monitor.vigiar()
