@@ -1,0 +1,3 @@
+*.db
+teste_log.txt
+__pycache__/
